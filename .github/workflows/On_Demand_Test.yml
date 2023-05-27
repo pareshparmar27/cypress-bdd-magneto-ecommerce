@@ -8,8 +8,6 @@ on:
         description: Select Browser
         options:
           - chrome
-          - firefox
-          - edge
       test-tag:
         type: choice
         description: Select Test Tag

@@ -1,0 +1,55 @@
+name: On Demand Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        type: choice
+        description: Select Browser
+        options:
+          - chrome
+          - firefox
+          - edge
+      test-tag:
+        type: choice
+        description: Select Test Tag
+        options:
+          - login
+          - home
+          - product-search
+          - regression
+      test-title:
+        type: string
+        description: Enter Title
+
+jobs:
+  cypress-test:
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node18.12.0-chrome103-ff107
+      options: --user 1001
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1]
+    steps:
+      - uses: actions/checkout@v3
+      - name: save git values
+        run: |
+          echo COMMIT_INFO_BRANCH=$(git rev-parse --abbrev-ref HEAD) >> $GITHUB_ENV
+          echo COMMIT_INFO_MESSAGE=${{ github.event.inputs.test-title }} >> $GITHUB_ENV
+          echo COMMIT_INFO_EMAIL=$(git show -s --pretty=%ae) >> $GITHUB_ENV
+          echo COMMIT_INFO_AUTHOR=$(git show -s --pretty=%an) >> $GITHUB_ENV
+          echo COMMIT_INFO_SHA=$(git show -s --pretty=%H) >> $GITHUB_ENV
+          echo COMMIT_INFO_TIMESTAMP=$(git show -s --pretty=%ct) >> $GITHUB_ENV
+          echo COMMIT_INFO_REMOTE=$(git config --get remote.origin.url) >> $GITHUB_ENV
+          rm -rf .git
+      - run: npm install --force
+      - name: 'Tests'
+        uses: cypress-io/github-action@v4.2.1
+        with:
+          install: false
+          command: npx cypress run -e tags="@${{ github.event.inputs.test-tag }}" --browser ${{ github.event.inputs.browser }}
+          working-directory: .
+          group: 'Tests'
+          config: videoFolder=/tmp/cypress-videos

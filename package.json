@@ -4,7 +4,10 @@
   "description": "Cypress automation POC for RPFTB Pty Ltd",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress run -e tags=\"@regression\" --browser chrome"
+    "test": "npx cypress run -e tags=\"@regression\" --browser chrome",
+    "login": "npx cypress run -e tags=\"@login\" --browser chrome",
+    "home": "npx cypress run -e tags=\"@home\" --browser chrome",
+    "product-search": "npx cypress run -e tags=\"@product-search\" --browser chrome"
   },
   "author": "Paresh Parmar",
   "license": "ISC",

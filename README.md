@@ -20,8 +20,8 @@
 3. Click on "On Demand Test"
 4. Click on "Run workflow"
 5. Enter following details
-   5.1 Select "main" branch
-   5.2 Select any browser (eg. chrome)
-   5.3 Select any tag (eg. regression)
-   5.4 Enter title
+   - Select "main" branch
+   - Select any browser (eg. chrome)
+   - Select any tag (eg. regression)
+   - Enter title
 6. Click on "Run workflow" green button

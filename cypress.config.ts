@@ -34,6 +34,7 @@ module.exports = defineConfig({
   env: {
     username: 'paresh.qa.poc@gmail.com',
     password: 'Magneto1!',
+    TEST_1: '',
   },
   e2e: {
     baseUrl: 'https://magento.softwaretestingboard.com/',

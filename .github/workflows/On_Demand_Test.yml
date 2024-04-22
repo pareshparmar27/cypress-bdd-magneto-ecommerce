@@ -23,6 +23,7 @@ on:
 jobs:
   cypress-test:
     runs-on: ubuntu-latest
+    environment: dev
     container:
       image: cypress/browsers:node18.12.0-chrome103-ff107
       options: --user 1001
@@ -32,6 +33,8 @@ jobs:
         containers: [1]
     steps:
       - uses: actions/checkout@v3
+        env:
+          TEST_1: ${{ secrets.TEST_1}}
       - name: save git values
         run: |
           echo COMMIT_INFO_BRANCH=$(git rev-parse --abbrev-ref HEAD) >> $GITHUB_ENV
@@ -42,6 +45,8 @@ jobs:
           echo COMMIT_INFO_TIMESTAMP=$(git show -s --pretty=%ct) >> $GITHUB_ENV
           echo COMMIT_INFO_REMOTE=$(git config --get remote.origin.url) >> $GITHUB_ENV
           rm -rf .git
+      - run: echo "*****************"
+      - run: echo "$TEST_1"
       - run: npm install --force
       - name: 'Tests'
         uses: cypress-io/github-action@v4.2.1

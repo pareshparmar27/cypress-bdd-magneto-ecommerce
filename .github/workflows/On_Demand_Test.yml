@@ -1,8 +1,5 @@
 name: On Demand Test
 
-env:
-  CYPRESS_TEST_1: ${{ secrets.TEST_1 }}
-
 on:
   workflow_dispatch:
     inputs:
@@ -36,7 +33,10 @@ jobs:
         containers: [1]
     steps:
       - uses: actions/checkout@v3
-      - run: echo "$TEST_1"
+        env:
+          CYPRESS_TEST_1: ${{ secrets.TEST_1 }}
+      - run: |
+          echo "$CYPRESS_TEST_1"
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJson(job) }}

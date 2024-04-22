@@ -36,6 +36,10 @@ jobs:
       - env:
           TEST_1: ${{ secrets.TEST_1}}
         run: echo "$TEST_1"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: save git values
         run: |
           echo COMMIT_INFO_BRANCH=$(git rev-parse --abbrev-ref HEAD) >> $GITHUB_ENV

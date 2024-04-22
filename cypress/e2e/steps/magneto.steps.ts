@@ -28,7 +28,8 @@ Then("a user validates that the search results are displayed correctly for the {
 
 When("a user enters valid credentials", () => {
     // cy.login();
-    console.log(`******${Cypress.env('TEST_1')}******`);
+    cy.task('log', `#######`);
+    cy.task('log', `******${Cypress.env('TEST_1')}******`);
 });
 
 Then("a user gets access to their account", () => {

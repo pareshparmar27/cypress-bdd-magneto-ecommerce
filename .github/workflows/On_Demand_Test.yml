@@ -1,7 +1,7 @@
 name: On Demand Test
 
 env:
-  CYPRESS_TEST_1: "hello dev"
+  CYPRESS_TEST_1: ${{ secrets.TEST_1 }}
 
 on:
   workflow_dispatch:

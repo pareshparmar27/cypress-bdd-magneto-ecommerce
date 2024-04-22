@@ -1,7 +1,7 @@
 name: On Demand Test
 
 env:
-  TEST_1: "hello dev"
+  CYPRESS_TEST_1: "hello dev"
 
 on:
   workflow_dispatch:

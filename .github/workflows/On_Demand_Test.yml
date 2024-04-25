@@ -33,10 +33,6 @@ jobs:
         containers: [1]
     steps:
       - uses: actions/checkout@v3
-        env:
-          CYPRESS_TEST_1: ${{ secrets.TEST_1 }}
-      - run: |
-          echo "$CYPRESS_TEST_1"
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
@@ -61,7 +57,11 @@ jobs:
           rm -rf .git
       - run: npm install --force
       - name: 'Tests'
+        env:
+          CYPRESS_TEST_1: ${{ secrets.TEST_1 }}
         uses: cypress-io/github-action@v4.2.1
+      - run: |
+          echo "$CYPRESS_TEST_1"
         with:
           install: false
           command: npx cypress run -e tags="@${{ github.event.inputs.test-tag }}" --browser ${{ github.event.inputs.browser }}
